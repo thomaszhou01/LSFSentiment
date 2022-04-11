@@ -51,8 +51,9 @@ class TestDelete(APIView):
             raise Http404
 
     def delete(self, request, idNum):
+        test = self.request.query_params.get('test1')
         print("data")
-        print(idNum)
+        print(test)
         
         snippet = self.get_object(idNum)
         snippet.delete()
