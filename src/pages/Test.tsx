@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-function Test() {
+function Test(props: any) {
   return (
     <div className="App">
       <header className="App-header">
@@ -9,6 +9,7 @@ function Test() {
         <p>This is the test page</p>
         <p>This is the test page</p>
         <p>This is the test page</p>
+        <h2>{props.match.params.id}</h2>
       </header>
     </div>
   );
