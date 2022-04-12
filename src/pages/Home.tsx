@@ -10,11 +10,13 @@ function Home() {
   const [subreddit, setSubreddit] = useState("");
 
   function Request(props: any) {
-    axios.get("http://127.0.0.1:8000/test").then((response: any) => {
-      // handle success
-      console.log(response.data);
-      setSubreddit(response.data[0]);
-    });
+    axios
+      .get("https://reddit-sentiment-backend.herokuapp.com/test")
+      .then((response: any) => {
+        // handle success
+        console.log(response.data);
+        // setSubreddit(response.data[0]);
+      });
   }
 
   function HandleSubredditInput(event: React.ChangeEvent<HTMLInputElement>) {
