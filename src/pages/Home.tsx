@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, IconButton, Paper, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { getTest } from "../components/api/getTest";
 import SearchIcon from "@mui/icons-material/Search";
 import "./style/Style.css";
 const axios = require("axios");
@@ -11,13 +12,10 @@ function Home() {
   const [subreddit, setSubreddit] = useState("");
 
   function Request(props: any) {
-    axios
-      .get("https://reddit-sentiment-backend.herokuapp.com/test")
-      .then((response: any) => {
-        // handle success
-        console.log(response.data);
-        setSubreddit(response.data[0]["name"]);
-      });
+    getTest().then((response: any) => {
+      console.log(response.data);
+      setSubreddit(response.data[0]["name"]);
+    });
     navigate("/testing/" + subreddit);
   }
 
