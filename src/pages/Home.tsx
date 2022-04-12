@@ -1,20 +1,35 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, IconButton, Paper, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 import "../components/Style.css";
 const axios = require("axios");
 
 function Home() {
-  const [text, setText] = useState("");
+  const [subreddit, setSubreddit] = useState("");
 
   function Request(props: any) {
     axios.get("http://127.0.0.1:8000/test").then((response: any) => {
       // handle success
       console.log(response.data);
-      setText(response.data[0]);
+      setSubreddit(response.data[0]);
     });
   }
+
+  function HandleSubredditInput(event: React.ChangeEvent<HTMLInputElement>) {
+    setSubreddit(event.target.value);
+  }
+
+  function HandleSubredditSearch() {
+    console.log(subreddit.trim());
+  }
+
+  const SearchButton = () => (
+    <IconButton onClick={HandleSubredditSearch}>
+      <SearchIcon />
+    </IconButton>
+  );
 
   return (
     <div className="App">
@@ -22,7 +37,20 @@ function Home() {
         <p>This is the real page</p>
       </header>
       <Button onClick={Request}>button</Button>
-      {text}
+      {subreddit}
+      <div>
+        <Paper>
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            fullWidth
+            value={subreddit}
+            onChange={HandleSubredditInput}
+            placeholder="Search Subreddit"
+            InputProps={{ endAdornment: <SearchButton /> }}
+          />
+        </Paper>
+      </div>
     </div>
   );
 }
