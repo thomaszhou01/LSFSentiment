@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import "../components/Style.css";
 const axios = require("axios");
 
 function Home() {
