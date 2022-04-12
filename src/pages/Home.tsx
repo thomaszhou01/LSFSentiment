@@ -1,12 +1,13 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, IconButton, Paper, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import "../components/Style.css";
+import "./style/Style.css";
 const axios = require("axios");
 
 function Home() {
+  const navigate = useNavigate();
   const [subreddit, setSubreddit] = useState("");
 
   function Request(props: any) {
@@ -15,8 +16,9 @@ function Home() {
       .then((response: any) => {
         // handle success
         console.log(response.data);
-        // setSubreddit(response.data[0]);
+        setSubreddit(response.data[0]["name"]);
       });
+    navigate("/testing/" + subreddit);
   }
 
   function HandleSubredditInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -35,12 +37,10 @@ function Home() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>This is the real page</p>
-      </header>
-      <Button onClick={Request}>button</Button>
+      <h1>Subreddit Sentiment</h1>
+      <h3>Reddit app</h3>
       {subreddit}
-      <div>
+      <div className="searchBar">
         <Paper>
           <TextField
             id="outlined-basic"
@@ -52,8 +52,11 @@ function Home() {
             InputProps={{ endAdornment: <SearchButton /> }}
           />
         </Paper>
+        <Button id="button" variant="contained" onClick={Request}>
+          Search
+        </Button>
       </div>
     </div>
   );
 }
-export default withRouter(Home);
+export default Home;

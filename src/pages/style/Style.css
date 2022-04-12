@@ -5,3 +5,12 @@ body {
   /* background-color: rgb(144, 70, 255); */
   background-color: rgb(71, 69, 69);
 }
+
+.searchBar {
+  padding: 20% 0;
+  width: 50vw;
+}
+
+#button {
+  margin-top: 2%;
+}
