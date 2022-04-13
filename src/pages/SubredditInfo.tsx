@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
-function Test(props: any) {
+function SubredditInfo(props: any) {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -16,4 +16,4 @@ function Test(props: any) {
     </div>
   );
 }
-export default Test;
+export default SubredditInfo;
