@@ -8,7 +8,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/testing/:id" element={<SubredditInfo />} />
+        <Route path="/testing/:subreddit" element={<SubredditInfo />} />
+        <Route path="/testing/:subreddit/:posts" element={<SubredditInfo />} />
       </Routes>
     </BrowserRouter>
   );
