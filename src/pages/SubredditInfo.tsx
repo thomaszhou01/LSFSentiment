@@ -36,26 +36,22 @@ function SubredditInfo(props: any) {
   return (
     <div className="App">
       <h2>{subreddit}</h2>
-      <ReactPlayer
+      {/* <ReactPlayer
         url="https://clips-media-assets2.twitch.tv/AT-cm%7C6W9DbThZ9DNu6uLeN1ZWZg.mp4"
         playing={true}
         controls={true}
-      />
-      <MediaDisplay
-        mediaType={0}
-        clipId={"SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI"}
-      />
-      <TwitterTweetEmbed
-        tweetId={"1515437059967758340"}
-        options={{ height: 100, width: 100 }}
-      />
-      {subredditPosts.map((postName) => (
+      /> */}
+      {/* {subredditPosts.map((postName) => (
         <SubredditPost
           postId={postName["id"]}
           postTitle={postName["title"]}
           key={postName["id"]}
         />
-      ))}
+      ))} */}
+      <MediaDisplay
+        mediaType={0}
+        clipId={"SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI"}
+      />
     </div>
   );
 }
