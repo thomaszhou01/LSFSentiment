@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
 import SubredditPost from "../components/ui/SubredditPost";
-import { ListItem, ListItemText, Paper } from "@mui/material";
+import { getPostComments } from "../components/api/getPostComments";
 
 function SubredditInfo(props: any) {
   const navigate = useNavigate();
