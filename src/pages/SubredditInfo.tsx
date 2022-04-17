@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
+import Iframe from "react-iframe";
+import { TwitterTweetEmbed } from "react-twitter-embed";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
 import SubredditPost from "../components/ui/SubredditPost";
+import MediaDisplay from "../components/ui/MediaDisplay";
 import { getPostComments } from "../components/api/getPostComments";
 
 function SubredditInfo(props: any) {
@@ -32,6 +36,19 @@ function SubredditInfo(props: any) {
   return (
     <div className="App">
       <h2>{subreddit}</h2>
+      <ReactPlayer
+        url="https://clips-media-assets2.twitch.tv/AT-cm%7C6W9DbThZ9DNu6uLeN1ZWZg.mp4"
+        playing={true}
+        controls={true}
+      />
+      <MediaDisplay
+        mediaType={0}
+        clipId={"SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI"}
+      />
+      <TwitterTweetEmbed
+        tweetId={"1515437059967758340"}
+        options={{ height: 100, width: 100 }}
+      />
       {subredditPosts.map((postName) => (
         <SubredditPost
           postId={postName["id"]}

@@ -50,7 +50,7 @@ function Home() {
           controls={true}
         />
         <Iframe
-          url="https://clips.twitch.tv/embed?clip=SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI&parent=subreddit-sentiment.herokuapp.com"
+          url="https://clips.twitch.tv/embed?clip=SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI&parent=subreddit-sentiment.herokuapp.com "
           width="700px"
           height="450px"
           id="myId"
