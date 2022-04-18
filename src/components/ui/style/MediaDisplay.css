@@ -1,0 +1,21 @@
+.video-wrapper {
+  height: 100%;
+  width: 100%;
+  min-height: 225px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.tweet-wrapper {
+  text-align: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.mediaDisplay {
+  width: 60vw;
+  background-color: rgb(36, 36, 36);
+}

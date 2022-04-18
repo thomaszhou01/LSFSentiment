@@ -2,41 +2,64 @@ import { useCallback, useState } from "react";
 import Iframe from "react-iframe";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import ReactPlayer from "react-player";
+import SubredditPost from "./SubredditPost";
+import { createTheme } from "@mui/material";
+import TopBar from "./TopBar";
+import SentimentChart from "./SentimentChart";
+import "./style/MediaDisplay.css";
 
 function MediaDisplay(props: any) {
-  const [mediaType, setMediaType] = useState(props.mediaType);
+  const [postNum, setPostNum] = useState(0);
+
+  function changePost(increase: boolean) {
+    let nextNum = postNum;
+    if (increase) {
+      nextNum += 1;
+    } else {
+      nextNum -= 1;
+    }
+    if (nextNum >= props.postInfo.length || nextNum < 0) {
+      console.log("out of range");
+    } else {
+      setPostNum(nextNum);
+    }
+  }
 
   return (
     <div>
-      {mediaType == 0 && (
-        <Iframe
-          url={
-            "https://clips.twitch.tv/embed?clip=" +
-            props.clipId +
-            "&parent=subreddit-sentiment.herokuapp.com "
-          }
-          width="700px"
-          height="450px"
-          id="myId"
-          className="myClassname"
-          position="relative"
-        />
-      )}
-      {mediaType == 1 && (
-        <TwitterTweetEmbed
-          tweetId={"1515437059967758340"}
-          options={{ height: 100, width: 100 }}
-        />
-      )}
-      {mediaType == 2 && (
-        <Iframe
-          url="https://clips.twitch.tv/embed?clip=SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI&parent=subreddit-sentiment.herokuapp.com "
-          width="700px"
-          height="450px"
-          id="myId"
-          className="myClassname"
-          position="relative"
-        />
+      {props.loaded && (
+        <div className="mediaDisplay">
+          <TopBar changePost={changePost} />
+          {props.postInfo[postNum]["mediaType"] == 0 && (
+            <div className="video-wrapper">
+              <ReactPlayer
+                url={props.postInfo[postNum]["mediaLink"]}
+                playing={true}
+                controls={true}
+                style={{ width: 1000 }}
+                width="100%"
+                height="100%"
+              />
+            </div>
+          )}
+          {props.postInfo[postNum]["mediaType"] == 1 && (
+            <div className="tweet-wrapper">
+              <TwitterTweetEmbed
+                onLoad={function noRefCheck() {}}
+                tweetId={props.postInfo[postNum]["mediaLink"]}
+              />
+            </div>
+          )}
+          {props.postInfo[postNum]["mediaType"] == 2 && <p>Missing</p>}
+
+          <SentimentChart />
+          <SubredditPost
+            postId={props.postInfo[postNum]["id"]}
+            postTitle={props.postInfo[postNum]["title"]}
+            key={props.postInfo[postNum]["id"]}
+            comments={props.postInfo[postNum]["comments"]}
+          />
+        </div>
       )}
     </div>
   );

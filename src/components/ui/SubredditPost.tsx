@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, ListItem, ListItemText, Paper } from "@mui/material";
 import { getPostComments } from "../api/getPostComments";
 import {
@@ -18,15 +18,12 @@ function SubredditPost(props: any) {
   const [total, setTotal] = useState(0);
 
   function searchSubreddit(id: string, depth: number) {
-    getPostComments(id, depth).then((response: any) => {
-      const data = response.data;
-      console.log(data[0]["comments"]);
-      setSubredditComments(data[0]["comments"]);
-      setNegative(data[0]["negative"]);
-      setPositive(data[0]["positive"]);
-      setNeutral(data[0]["neutral"]);
-      setTotal(data[0]["total"]);
-    });
+    console.log(props.comments[0]["comments"]);
+    setSubredditComments(props.comments[0]["comments"]);
+    setNegative(props.comments[0]["negative"]);
+    setPositive(props.comments[0]["positive"]);
+    setNeutral(props.comments[0]["neutral"]);
+    setTotal(props.comments[0]["total"]);
   }
 
   function generatePosts(post: never[]) {
@@ -45,6 +42,9 @@ function SubredditPost(props: any) {
       </Accordion>
     ));
   }
+  useEffect(() => {
+    searchSubreddit(props.postId, searchDepth);
+  }, []);
 
   return (
     <Paper
@@ -52,31 +52,28 @@ function SubredditPost(props: any) {
         marginBottom: 5,
         display: "flex",
         justifyContent: "center",
-        width: 1000,
+        width: "100%",
       }}
     >
-      <div>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography>
-              {props.postTitle}
-              <Button
-                variant="contained"
-                onClick={() => searchSubreddit(props.postId, searchDepth)}
-              >
-                Get SentimentData
-              </Button>
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{generatePosts(subredditComments)}</Typography>
-          </AccordionDetails>
-        </Accordion>
-      </div>
+      <Accordion style={{ width: "100%" }}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>{props.postTitle}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>{generatePosts(subredditComments)}</Typography>
+        </AccordionDetails>
+      </Accordion>
+      {/* <Button
+        variant="contained"
+        onClick={() => searchSubreddit(props.postId, searchDepth)}
+      >
+        Get SentimentData
+      </Button>
+      {generatePosts(subredditComments)} */}
     </Paper>
   );
 }

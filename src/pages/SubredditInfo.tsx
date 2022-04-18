@@ -10,6 +10,8 @@ import { getPostComments } from "../components/api/getPostComments";
 
 function SubredditInfo(props: any) {
   const navigate = useNavigate();
+  const [postNum, setPostNum] = useState(2);
+  const [loaded, setLoaded] = useState(false);
   const [subredditPosts, setSubredditPosts] = useState([]);
   const { subreddit, posts } = useParams();
 
@@ -26,32 +28,16 @@ function SubredditInfo(props: any) {
 
     getSubredditPosts(subredditName, numPosts).then((response: any) => {
       setSubredditPosts(response.data);
+      console.log(response.data);
+      setLoaded(true);
     });
   }, [subreddit]);
 
-  useEffect(() => {
-    console.log(subredditPosts);
-  }, [subredditPosts]);
-
   return (
     <div className="App">
-      <h2>{subreddit}</h2>
-      {/* <ReactPlayer
-        url="https://clips-media-assets2.twitch.tv/AT-cm%7C6W9DbThZ9DNu6uLeN1ZWZg.mp4"
-        playing={true}
-        controls={true}
-      /> */}
-      {/* {subredditPosts.map((postName) => (
-        <SubredditPost
-          postId={postName["id"]}
-          postTitle={postName["title"]}
-          key={postName["id"]}
-        />
-      ))} */}
-      <MediaDisplay
-        mediaType={0}
-        clipId={"SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI"}
-      />
+      <h1>LSF Sentiment</h1>
+
+      <MediaDisplay mediaType={0} postInfo={subredditPosts} loaded={loaded} />
     </div>
   );
 }

@@ -1,19 +1,36 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, IconButton, Paper, TextField } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Stack,
+  TextField,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import { useState, useEffect } from "react";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
-import ReactPlayer from "react-player";
-import Iframe from "react-iframe";
-import { TwitterTweetEmbed } from "react-twitter-embed";
-import SubredditPost from "../components/ui/SubredditPost";
+import { VictoryStack, VictoryBar } from "victory";
 import SearchIcon from "@mui/icons-material/Search";
 import "./style/Style.css";
 const axios = require("axios");
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#630cb4",
+    },
+  },
+});
+
 function Home() {
   const navigate = useNavigate();
-  const [subreddit, setSubreddit] = useState("");
+  const [subreddit, setSubreddit] = useState("livestreamfail");
   const [subredditPosts, setSubredditPosts] = useState([]);
 
   function Request(props: any) {
@@ -35,40 +52,39 @@ function Home() {
   );
   useEffect(() => {
     getSubredditPosts("LivestreamFail", 10).then((response: any) => {
+      console.log(response.data);
       setSubredditPosts(response.data);
     });
   }, []);
   return (
-    <div className="App">
+    <div className="homepage">
       <h1>LSF Sentiment</h1>
-      <h3>Reddit app</h3>
-      <div className="App">
-        <h2>{subreddit}</h2>
-        <ReactPlayer
-          url="https://clips-media-assets2.twitch.tv/AT-cm%7C6W9DbThZ9DNu6uLeN1ZWZg.mp4"
-          playing={true}
-          controls={true}
-        />
-        <Iframe
-          url="https://clips.twitch.tv/embed?clip=SpineyOnerousMarjoramFunRun-lBYDV7WnO46n34ZI&parent=subreddit-sentiment.herokuapp.com "
-          width="700px"
-          height="450px"
-          id="myId"
-          className="myClassname"
-          position="relative"
-        />
-        <TwitterTweetEmbed
-          tweetId={"1515437059967758340"}
-          options={{ height: 100, width: 100 }}
-        />
-        {subredditPosts.map((postName) => (
-          <SubredditPost
-            postId={postName["id"]}
-            postTitle={postName["title"]}
-            key={postName["id"]}
-          />
-        ))}
-      </div>
+      <h3>Get </h3>
+      <Stack>
+        <ThemeProvider theme={theme}>
+          <FormControl>
+            <FormLabel>Gender</FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="sortType"
+            >
+              <FormControlLabel value="Hot" control={<Radio />} label="Hot" />
+              <FormControlLabel value="Top" control={<Radio />} label="Top" />
+              <FormControlLabel value="New" control={<Radio />} label="New" />
+            </RadioGroup>
+          </FormControl>
+
+          <Button variant="contained" color="primary" onClick={Request}>
+            Search
+          </Button>
+          {/* <VictoryStack colorScale={["#D0021B", "#F5A623", "#00C16F"]}>
+            <VictoryBar horizontal data={[{ x: "a", y: 2 }]} />
+            <VictoryBar horizontal data={[{ x: "a", y: 1 }]} />
+            <VictoryBar horizontal data={[{ x: "a", y: 3 }]} />
+          </VictoryStack> */}
+        </ThemeProvider>
+      </Stack>
     </div>
   );
 }
