@@ -11,7 +11,12 @@ import {
 
 function SentimentChart(props: any) {
   const data = [
-    { name: "NE Send", completed: 230, failed: 335, inprogress: 553 },
+    {
+      name: "Sentiment",
+      negative: props.comments[0]["negative"],
+      neutral: props.comments[0]["neutral"],
+      positive: props.comments[0]["positive"],
+    },
   ];
   const renderCustomizedLabel = (props: any) => {
     const { content, ...rest } = props;
@@ -37,23 +42,23 @@ function SentimentChart(props: any) {
             axisLine={false}
           />
           <Tooltip />
-          <Bar dataKey="failed" fill="#dd7876" stackId="a">
+          <Bar dataKey="negative" fill="#dd7876" stackId="a">
             <LabelList
-              dataKey="failed"
+              dataKey="negative"
               position="center"
               content={renderCustomizedLabel}
             />
           </Bar>
-          <Bar dataKey="completed" fill="#82ba7f" stackId="a">
+          <Bar dataKey="neutral" fill="#76a8dd" stackId="a">
             <LabelList
-              dataKey="completed"
+              dataKey="neutral"
               position="center"
               content={renderCustomizedLabel}
             />
           </Bar>
-          <Bar dataKey="inprogress" fill="#76a8dd" stackId="a">
+          <Bar dataKey="positive" fill="#82ba7f" stackId="a">
             <LabelList
-              dataKey="inprogress"
+              dataKey="positive"
               position="center"
               content={renderCustomizedLabel}
             />

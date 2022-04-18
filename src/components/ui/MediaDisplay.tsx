@@ -27,6 +27,7 @@ function MediaDisplay(props: any) {
     <div>
       {props.loaded && (
         <div className="mediaDisplay">
+          <SentimentChart comments={props.postInfo[postNum]["comments"]} />
           <TopBar changePost={changePost} />
           {props.postInfo[postNum]["mediaType"] === 0 && (
             <div className="video-wrapper">
@@ -49,8 +50,6 @@ function MediaDisplay(props: any) {
             </div>
           )}
           {props.postInfo[postNum]["mediaType"] === 2 && <p>Missing</p>}
-
-          <SentimentChart />
           <SubredditPost
             postId={props.postInfo[postNum]["id"]}
             postTitle={props.postInfo[postNum]["title"]}

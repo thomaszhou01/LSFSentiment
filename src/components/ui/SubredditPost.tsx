@@ -18,7 +18,6 @@ function SubredditPost(props: any) {
   const [total, setTotal] = useState(0);
 
   function searchSubreddit(id: string, depth: number) {
-    console.log(props.comments[0]["comments"]);
     setSubredditComments(props.comments[0]["comments"]);
     setNegative(props.comments[0]["negative"]);
     setPositive(props.comments[0]["positive"]);
