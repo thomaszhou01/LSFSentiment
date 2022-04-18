@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ReactPlayer from "react-player";
-import Iframe from "react-iframe";
-import { TwitterTweetEmbed } from "react-twitter-embed";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
-import SubredditPost from "../components/ui/SubredditPost";
 import MediaDisplay from "../components/ui/MediaDisplay";
-import { getPostComments } from "../components/api/getPostComments";
 
 function SubredditInfo(props: any) {
   const navigate = useNavigate();
-  const [postNum, setPostNum] = useState(2);
   const [loaded, setLoaded] = useState(false);
   const [subredditPosts, setSubredditPosts] = useState([]);
   const { subreddit, posts } = useParams();

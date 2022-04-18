@@ -1,9 +1,7 @@
-import { useCallback, useState } from "react";
-import Iframe from "react-iframe";
+import { useState } from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import ReactPlayer from "react-player";
 import SubredditPost from "./SubredditPost";
-import { createTheme } from "@mui/material";
 import TopBar from "./TopBar";
 import SentimentChart from "./SentimentChart";
 import "./style/MediaDisplay.css";
@@ -30,7 +28,7 @@ function MediaDisplay(props: any) {
       {props.loaded && (
         <div className="mediaDisplay">
           <TopBar changePost={changePost} />
-          {props.postInfo[postNum]["mediaType"] == 0 && (
+          {props.postInfo[postNum]["mediaType"] === 0 && (
             <div className="video-wrapper">
               <ReactPlayer
                 url={props.postInfo[postNum]["mediaLink"]}
@@ -42,7 +40,7 @@ function MediaDisplay(props: any) {
               />
             </div>
           )}
-          {props.postInfo[postNum]["mediaType"] == 1 && (
+          {props.postInfo[postNum]["mediaType"] === 1 && (
             <div className="tweet-wrapper">
               <TwitterTweetEmbed
                 onLoad={function noRefCheck() {}}
@@ -50,7 +48,7 @@ function MediaDisplay(props: any) {
               />
             </div>
           )}
-          {props.postInfo[postNum]["mediaType"] == 2 && <p>Missing</p>}
+          {props.postInfo[postNum]["mediaType"] === 2 && <p>Missing</p>}
 
           <SentimentChart />
           <SubredditPost

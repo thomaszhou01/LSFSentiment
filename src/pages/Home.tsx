@@ -4,7 +4,6 @@ import {
   Button,
   IconButton,
   Stack,
-  TextField,
   FormControl,
   FormLabel,
   RadioGroup,
@@ -15,10 +14,8 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
-import { VictoryStack, VictoryBar } from "victory";
 import SearchIcon from "@mui/icons-material/Search";
 import "./style/Style.css";
-const axios = require("axios");
 
 const theme = createTheme({
   palette: {
