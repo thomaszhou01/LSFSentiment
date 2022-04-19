@@ -22,6 +22,9 @@ const theme = createTheme({
     primary: {
       main: "#630cb4",
     },
+    secondary: {
+      main: "#FFFFFF",
+    },
   },
 });
 
@@ -56,11 +59,10 @@ function Home() {
   return (
     <div className="homepage">
       <h1>LSF Sentiment</h1>
-      <h3>Get </h3>
-      <Stack>
+      <Stack direction="column" alignItems="center" justifyContent="center">
         <ThemeProvider theme={theme}>
           <FormControl>
-            <FormLabel>Gender</FormLabel>
+            <FormLabel style={{ color: "white" }}>Gender</FormLabel>
             <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
@@ -72,14 +74,14 @@ function Home() {
             </RadioGroup>
           </FormControl>
 
-          <Button variant="contained" color="primary" onClick={Request}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={Request}
+            fullWidth
+          >
             Search
           </Button>
-          {/* <VictoryStack colorScale={["#D0021B", "#F5A623", "#00C16F"]}>
-            <VictoryBar horizontal data={[{ x: "a", y: 2 }]} />
-            <VictoryBar horizontal data={[{ x: "a", y: 1 }]} />
-            <VictoryBar horizontal data={[{ x: "a", y: 3 }]} />
-          </VictoryStack> */}
         </ThemeProvider>
       </Stack>
     </div>
