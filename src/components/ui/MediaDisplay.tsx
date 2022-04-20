@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import ReactPlayer from "react-player";
 import SubredditPost from "./SubredditPost";
 import TopBar from "./TopBar";
 import SentimentChart from "./SentimentChart";
+import { getPostComments } from "../api/getPostComments";
 import "./style/MediaDisplay.css";
 
 function MediaDisplay(props: any) {
   const [postNum, setPostNum] = useState(0);
+  const [postInfo, setPostInfo] = useState([]);
 
   function changePost(increase: boolean) {
     let nextNum = postNum;
@@ -23,9 +25,19 @@ function MediaDisplay(props: any) {
     }
   }
 
+  useEffect(() => {
+    let postId = props.postInfo[postNum];
+    if (postId === undefined) {
+      return;
+    }
+    getPostComments(postId["id"]).then((response) => {
+      setPostInfo(response.data);
+    });
+  }, [postNum, props.loaded]);
+
   return (
     <div>
-      {props.loaded && (
+      {props.loaded && postInfo.length > 0 && (
         <div className="mediaDisplay">
           <TopBar
             changePost={changePost}
@@ -52,12 +64,11 @@ function MediaDisplay(props: any) {
             </div>
           )}
           {props.postInfo[postNum]["mediaType"] === 2 && <p>Missing</p>}
-          <SentimentChart comments={props.postInfo[postNum]["comments"]} />
+          <SentimentChart comments={postInfo} />
           <SubredditPost
             postId={props.postInfo[postNum]["id"]}
             postTitle={props.postInfo[postNum]["title"]}
-            key={props.postInfo[postNum]["id"]}
-            comments={props.postInfo[postNum]["comments"]}
+            comments={postInfo}
           />
         </div>
       )}

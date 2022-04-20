@@ -10,9 +10,8 @@ function SubredditInfo(props: any) {
   const { subreddit, posts } = useParams();
 
   useEffect(() => {
-    console.log(posts);
     let subredditName = subreddit?.toString();
-    let numPosts = 10;
+    let numPosts = 50;
     if (subredditName == null) {
       subredditName = "LivestreamFail";
     }

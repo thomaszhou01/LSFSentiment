@@ -1,5 +1,6 @@
 import {
   IconButton,
+  Button,
   AppBar,
   Toolbar,
   ThemeProvider,
@@ -25,12 +26,20 @@ function TopBar(props: any) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {props.title}
           </Typography>
-          <IconButton onClick={() => props.changePost(false)}>
-            <ArrowBackIosNewIcon />
-          </IconButton>
-          <IconButton onClick={() => props.changePost(true)}>
-            <ArrowForwardIosIcon />
-          </IconButton>
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackIosNewIcon />}
+            onClick={() => props.changePost(false)}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="contained"
+            endIcon={<ArrowForwardIosIcon />}
+            onClick={() => props.changePost(true)}
+          >
+            Next
+          </Button>
         </Toolbar>
       </AppBar>
     </ThemeProvider>

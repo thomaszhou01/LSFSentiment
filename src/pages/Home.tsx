@@ -31,7 +31,6 @@ const theme = createTheme({
 function Home() {
   const navigate = useNavigate();
   const [subreddit, setSubreddit] = useState("livestreamfail");
-  const [subredditPosts, setSubredditPosts] = useState([]);
 
   function Request(props: any) {
     navigate("/subreddit/" + subreddit);
@@ -50,19 +49,13 @@ function Home() {
       <SearchIcon />
     </IconButton>
   );
-  useEffect(() => {
-    getSubredditPosts("LivestreamFail", 10).then((response: any) => {
-      console.log(response.data);
-      setSubredditPosts(response.data);
-    });
-  }, []);
   return (
     <div className="homepage">
       <h1>LSF Sentiment</h1>
       <Stack direction="column" alignItems="center" justifyContent="center">
         <ThemeProvider theme={theme}>
           <FormControl>
-            <FormLabel style={{ color: "white" }}>Gender</FormLabel>
+            <FormLabel style={{ color: "white" }}>Search Type</FormLabel>
             <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
