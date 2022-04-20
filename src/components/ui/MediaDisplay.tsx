@@ -27,7 +27,10 @@ function MediaDisplay(props: any) {
     <div>
       {props.loaded && (
         <div className="mediaDisplay">
-          <TopBar changePost={changePost} />
+          <TopBar
+            changePost={changePost}
+            title={props.postInfo[postNum]["title"]}
+          />
           {props.postInfo[postNum]["mediaType"] === 0 && (
             <div className="video-wrapper">
               <ReactPlayer

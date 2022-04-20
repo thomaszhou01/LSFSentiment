@@ -4,6 +4,7 @@ import {
   Toolbar,
   ThemeProvider,
   createTheme,
+  Typography,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -21,12 +22,13 @@ function TopBar(props: any) {
     <ThemeProvider theme={theme}>
       <AppBar position="static" color="primary">
         <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {props.title}
+          </Typography>
           <IconButton onClick={() => props.changePost(false)}>
             <ArrowBackIosNewIcon />
-            Previous
           </IconButton>
           <IconButton onClick={() => props.changePost(true)}>
-            Next
             <ArrowForwardIosIcon />
           </IconButton>
         </Toolbar>

@@ -7,6 +7,7 @@ import {
   Tooltip,
   Label,
   LabelList,
+  Legend,
 } from "recharts";
 import "./style/SentimentChart.css";
 
@@ -25,8 +26,9 @@ function SentimentChart(props: any) {
     return <Label {...rest} fontSize="12" fill="#FFFFFF" fontWeight="Bold" />;
   };
   return (
-    <div style={{ width: "60vw" }} className="chartBody">
-      <ResponsiveContainer height={50} width={"100%"}>
+    <div className="chartBody">
+      <h3>Sentiment Analysis</h3>
+      <ResponsiveContainer height={80} width={"100%"}>
         <BarChart
           layout="vertical"
           data={data}
@@ -64,6 +66,7 @@ function SentimentChart(props: any) {
               content={renderCustomizedLabel}
             />
           </Bar>
+          <Legend verticalAlign="bottom" />
         </BarChart>
       </ResponsiveContainer>
     </div>

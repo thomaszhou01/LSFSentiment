@@ -60,7 +60,7 @@ function SubredditPost(props: any) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>{props.postTitle}</Typography>
+          <Typography>View Comments</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>{generatePosts(subredditComments)}</Typography>
