@@ -10,20 +10,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function SubredditPost(props: any) {
-  const [searchDepth, setSearchDepth] = useState(10);
   const [subredditComments, setSubredditComments] = useState([]);
-  const [negative, setNegative] = useState(0);
-  const [positive, setPositive] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [total, setTotal] = useState(0);
-
-  function searchSubreddit(id: string, depth: number) {
-    setSubredditComments(props.comments[0]["comments"]);
-    setNegative(props.comments[0]["negative"]);
-    setPositive(props.comments[0]["positive"]);
-    setNeutral(props.comments[0]["neutral"]);
-    setTotal(props.comments[0]["total"]);
-  }
 
   function generatePosts(post: never[]) {
     return post.map((postName) => (
@@ -42,8 +29,9 @@ function SubredditPost(props: any) {
     ));
   }
   useEffect(() => {
-    searchSubreddit(props.postId, searchDepth);
-  }, []);
+    setSubredditComments(props.comments[0]["comments"]);
+    console.log(props.comments);
+  }, [props.comments]);
 
   return (
     <Paper
@@ -66,13 +54,6 @@ function SubredditPost(props: any) {
           <Typography>{generatePosts(subredditComments)}</Typography>
         </AccordionDetails>
       </Accordion>
-      {/* <Button
-        variant="contained"
-        onClick={() => searchSubreddit(props.postId, searchDepth)}
-      >
-        Get SentimentData
-      </Button>
-      {generatePosts(subredditComments)} */}
     </Paper>
   );
 }
