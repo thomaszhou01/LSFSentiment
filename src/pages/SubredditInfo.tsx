@@ -7,23 +7,29 @@ function SubredditInfo(props: any) {
   const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
   const [subredditPosts, setSubredditPosts] = useState([]);
-  const { subreddit, posts } = useParams();
+  const { subreddit, posts, type } = useParams();
 
   useEffect(() => {
     let subredditName = subreddit?.toString();
-    let numPosts = 50;
+    let searchType = "hot";
+    let postOption = "50";
     if (subredditName == null) {
       subredditName = "LivestreamFail";
     }
+    if (type != null) {
+      searchType = type;
+    }
     if (posts != null) {
-      numPosts = parseInt(posts);
+      postOption = posts;
     }
 
-    getSubredditPosts(subredditName, numPosts).then((response: any) => {
-      setSubredditPosts(response.data);
-      console.log(response.data);
-      setLoaded(true);
-    });
+    getSubredditPosts(subredditName, postOption, searchType).then(
+      (response: any) => {
+        setSubredditPosts(response.data);
+        console.log(response.data);
+        setLoaded(true);
+      }
+    );
   }, [subreddit]);
 
   return (

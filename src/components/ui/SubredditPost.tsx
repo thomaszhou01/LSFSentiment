@@ -31,7 +31,7 @@ function SubredditPost(props: any) {
   useEffect(() => {
     setSubredditComments(props.comments[0]["comments"]);
     console.log(props.comments);
-  }, [props.comments]);
+  }, []);
 
   return (
     <Paper

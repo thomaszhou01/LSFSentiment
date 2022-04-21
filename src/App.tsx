@@ -9,8 +9,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/subreddit/:subreddit" element={<SubredditInfo />} />
+        <Route path="/subreddit/:subreddit" element={<SubredditInfo />} />
+        <Route path="/subreddit/:subreddit/:type" element={<SubredditInfo />} />
         <Route
-          path="/subreddit/:subreddit/:posts"
+          path="/subreddit/:subreddit/:type/:posts"
           element={<SubredditInfo />}
         />
       </Routes>

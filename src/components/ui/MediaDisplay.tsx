@@ -5,11 +5,13 @@ import SubredditPost from "./SubredditPost";
 import TopBar from "./TopBar";
 import SentimentChart from "./SentimentChart";
 import { getPostComments } from "../api/getPostComments";
+import { getTwitchClip } from "../api/getTwitchClip";
 import "./style/MediaDisplay.css";
 
 function MediaDisplay(props: any) {
   const [postNum, setPostNum] = useState(0);
   const [postInfo, setPostInfo] = useState([]);
+  const [clipLink, setClipLink] = useState("");
 
   function changePost(increase: boolean) {
     let nextNum = postNum;
@@ -30,8 +32,13 @@ function MediaDisplay(props: any) {
     if (postId === undefined) {
       return;
     }
-    getPostComments(postId["id"]).then((response) => {
-      setPostInfo(response.data);
+    getTwitchClip(props.postInfo[postNum]["mediaLink"]).then((response) => {
+      setClipLink(response.data);
+      getPostComments(postId["id"]).then((response) => {
+        console.log(response.data);
+        setPostInfo(response.data);
+      });
+      console.log(response.data);
     });
   }, [postNum, props.loaded]);
 
@@ -46,7 +53,7 @@ function MediaDisplay(props: any) {
           {props.postInfo[postNum]["mediaType"] === 0 && (
             <div className="video-wrapper">
               <ReactPlayer
-                url={props.postInfo[postNum]["mediaLink"]}
+                url={clipLink}
                 playing={true}
                 controls={true}
                 style={{ width: 1000 }}
@@ -59,7 +66,7 @@ function MediaDisplay(props: any) {
             <div className="tweet-wrapper">
               <TwitterTweetEmbed
                 onLoad={function noRefCheck() {}}
-                tweetId={props.postInfo[postNum]["mediaLink"]}
+                tweetId={clipLink}
               />
             </div>
           )}
@@ -68,6 +75,7 @@ function MediaDisplay(props: any) {
           <SubredditPost
             postId={props.postInfo[postNum]["id"]}
             postTitle={props.postInfo[postNum]["title"]}
+            key={props.postInfo[postNum]["id"]}
             comments={postInfo}
           />
         </div>

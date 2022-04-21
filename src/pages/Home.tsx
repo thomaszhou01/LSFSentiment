@@ -11,6 +11,9 @@ import {
   Radio,
   ThemeProvider,
   createTheme,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
@@ -31,17 +34,43 @@ const theme = createTheme({
 function Home() {
   const navigate = useNavigate();
   const [subreddit, setSubreddit] = useState("livestreamfail");
+  const [searchType, setSearchType] = useState("");
+  const [searchOption, setSearchOption] = useState("");
+  const [isTop, setIsTop] = useState(false);
+  const [ready, setReady] = useState(true);
 
   function Request(props: any) {
+    if (searchType != "") {
+      navigate(
+        "/subreddit/" + subreddit + "/" + searchType + "/" + searchOption
+      );
+      return;
+    }
     navigate("/subreddit/" + subreddit);
   }
 
-  function HandleSubredditInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setSubreddit(event.target.value);
+  function HandleOptionChange(props: any) {
+    setSearchOption(props.target.value as string);
+    if (searchType != "" && props.target.value != "") {
+      setReady(false);
+    } else {
+      setReady(true);
+    }
   }
 
   function HandleSubredditSearch() {
     console.log(subreddit.trim());
+  }
+
+  function HandleSearchType(props: any) {
+    setSearchType(props.target.value);
+    if (props.target.value == "top") {
+      setIsTop(true);
+    } else {
+      setIsTop(false);
+    }
+    setSearchOption("");
+    setReady(true);
   }
 
   const SearchButton = () => (
@@ -55,22 +84,70 @@ function Home() {
       <Stack direction="column" alignItems="center" justifyContent="center">
         <ThemeProvider theme={theme}>
           <FormControl>
-            <FormLabel style={{ color: "white" }}>Search Type</FormLabel>
+            <FormLabel style={{ color: "white", textAlign: "center" }}>
+              Search Type
+            </FormLabel>
             <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="sortType"
+              onChange={HandleSearchType}
             >
-              <FormControlLabel value="Hot" control={<Radio />} label="Hot" />
-              <FormControlLabel value="Top" control={<Radio />} label="Top" />
-              <FormControlLabel value="New" control={<Radio />} label="New" />
+              <FormControlLabel value="hot" control={<Radio />} label="Hot" />
+              <FormControlLabel value="top" control={<Radio />} label="Top" />
+              <FormControlLabel value="new" control={<Radio />} label="New" />
             </RadioGroup>
           </FormControl>
-
+          {!isTop && (
+            <FormControl variant="filled" fullWidth>
+              <InputLabel style={{ color: "white" }}>
+                Number of Posts
+              </InputLabel>
+              <Select
+                value={searchOption}
+                label="Number of Posts"
+                onChange={HandleOptionChange}
+                style={{ color: "white" }}
+              >
+                <MenuItem value={"10"}>10</MenuItem>
+                <MenuItem value={"25"}>25</MenuItem>
+                <MenuItem value={"50"}>50</MenuItem>
+                <MenuItem value={"75"}>75</MenuItem>
+                <MenuItem value={"100"}>100</MenuItem>
+              </Select>
+            </FormControl>
+          )}
+          {isTop && (
+            <FormControl>
+              <FormLabel style={{ color: "white", textAlign: "center" }}>
+                Search Period
+              </FormLabel>
+              <RadioGroup row name="sortType" onChange={HandleOptionChange}>
+                <FormControlLabel
+                  value="hour"
+                  control={<Radio />}
+                  label="Hour"
+                />
+                <FormControlLabel value="day" control={<Radio />} label="Day" />
+                <FormControlLabel
+                  value="week"
+                  control={<Radio />}
+                  label="Week"
+                />
+                <FormControlLabel
+                  value="month"
+                  control={<Radio />}
+                  label="Month"
+                />
+                <FormControlLabel value="all" control={<Radio />} label="All" />
+              </RadioGroup>
+            </FormControl>
+          )}
           <Button
             variant="contained"
             color="primary"
             onClick={Request}
+            disabled={ready}
             fullWidth
           >
             Search

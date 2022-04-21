@@ -30,6 +30,7 @@ function TopBar(props: any) {
             variant="contained"
             startIcon={<ArrowBackIosNewIcon />}
             onClick={() => props.changePost(false)}
+            disableElevation={true}
           >
             Previous
           </Button>
@@ -37,6 +38,7 @@ function TopBar(props: any) {
             variant="contained"
             endIcon={<ArrowForwardIosIcon />}
             onClick={() => props.changePost(true)}
+            disableElevation={true}
           >
             Next
           </Button>
