@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
 import MediaDisplay from "../components/ui/MediaDisplay";
+import HomeButton from "../components/ui/HomeButton";
 
 function SubredditInfo(props: any) {
   const navigate = useNavigate();
@@ -34,8 +35,7 @@ function SubredditInfo(props: any) {
 
   return (
     <div className="App">
-      <h1>LSF Sentiment</h1>
-
+      <HomeButton />
       <MediaDisplay mediaType={0} postInfo={subredditPosts} loaded={loaded} />
     </div>
   );

@@ -12,6 +12,7 @@ function MediaDisplay(props: any) {
   const [postNum, setPostNum] = useState(0);
   const [postInfo, setPostInfo] = useState([]);
   const [clipLink, setClipLink] = useState("");
+  const [loaded, setLoaded] = useState(false);
 
   function changePost(increase: boolean) {
     let nextNum = postNum;
@@ -23,6 +24,7 @@ function MediaDisplay(props: any) {
     if (nextNum >= props.postInfo.length || nextNum < 0) {
       console.log("out of range");
     } else {
+      setLoaded(false);
       setPostNum(nextNum);
     }
   }
@@ -33,7 +35,9 @@ function MediaDisplay(props: any) {
       return;
     }
     getTwitchClip(props.postInfo[postNum]["mediaLink"]).then((response) => {
-      setClipLink(response.data);
+      const linkToClip = response.data;
+      setClipLink(linkToClip);
+      setLoaded(true);
       getPostComments(postId["id"]).then((response) => {
         console.log(response.data);
         setPostInfo(response.data);
@@ -62,12 +66,9 @@ function MediaDisplay(props: any) {
               />
             </div>
           )}
-          {props.postInfo[postNum]["mediaType"] === 1 && (
+          {props.postInfo[postNum]["mediaType"] === 1 && loaded && (
             <div className="tweet-wrapper">
-              <TwitterTweetEmbed
-                onLoad={function noRefCheck() {}}
-                tweetId={clipLink}
-              />
+              <TwitterTweetEmbed tweetId={clipLink} />
             </div>
           )}
           {props.postInfo[postNum]["mediaType"] === 2 && <p>Missing</p>}

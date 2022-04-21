@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
+import HomeButton from "../components/ui/HomeButton";
 import SearchIcon from "@mui/icons-material/Search";
 import "./style/Style.css";
 
@@ -80,7 +81,7 @@ function Home() {
   );
   return (
     <div className="homepage">
-      <h1>LSF Sentiment</h1>
+      <HomeButton />
       <Stack direction="column" alignItems="center" justifyContent="center">
         <ThemeProvider theme={theme}>
           <FormControl>
