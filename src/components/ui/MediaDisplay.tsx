@@ -4,6 +4,7 @@ import ReactPlayer from "react-player";
 import SubredditPost from "./SubredditPost";
 import TopBar from "./TopBar";
 import SentimentChart from "./SentimentChart";
+import { LinearProgress } from "@mui/material";
 import { getPostComments } from "../api/getPostComments";
 import { getTwitchClip } from "../api/getTwitchClip";
 import "./style/MediaDisplay.css";
@@ -48,13 +49,13 @@ function MediaDisplay(props: any) {
 
   return (
     <div>
-      {props.loaded && postInfo.length > 0 && (
+      {props.loaded && postInfo.length > 0 ? (
         <div className="mediaDisplay">
           <TopBar
             changePost={changePost}
             title={props.postInfo[postNum]["title"]}
           />
-          {props.postInfo[postNum]["mediaType"] === 0 && (
+          {props.postInfo[postNum]["mediaType"] === 0 ? (
             <div className="video-wrapper">
               <ReactPlayer
                 url={clipLink}
@@ -65,21 +66,27 @@ function MediaDisplay(props: any) {
                 height="100%"
               />
             </div>
+          ) : props.postInfo[postNum]["mediaType"] === 1 ? (
+            props.postInfo[postNum]["mediaType"] === 1 &&
+            loaded && (
+              <div className="tweet-wrapper">
+                <TwitterTweetEmbed tweetId={clipLink} />
+              </div>
+            )
+          ) : props.postInfo[postNum]["mediaType"] === 2 ? (
+            <p>Missing</p>
+          ) : (
+            <LinearProgress />
           )}
-          {props.postInfo[postNum]["mediaType"] === 1 && loaded && (
-            <div className="tweet-wrapper">
-              <TwitterTweetEmbed tweetId={clipLink} />
-            </div>
-          )}
-          {props.postInfo[postNum]["mediaType"] === 2 && <p>Missing</p>}
           <SentimentChart comments={postInfo} />
           <SubredditPost
             postId={props.postInfo[postNum]["id"]}
             postTitle={props.postInfo[postNum]["title"]}
-            key={props.postInfo[postNum]["id"]}
             comments={postInfo}
           />
         </div>
+      ) : (
+        <LinearProgress />
       )}
     </div>
   );

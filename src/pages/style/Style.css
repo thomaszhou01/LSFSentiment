@@ -1,8 +1,8 @@
 body {
   display: flex;
   justify-content: center;
-  background-color: rgb(44, 44, 44);
-  color: white;
+  background-color: rgb(27, 27, 27);
+  color: #cfcfcf;
 }
 
 .searchBar {
@@ -13,9 +13,13 @@ body {
 h2,
 h1 {
   text-align: center;
-  color: rgb(99, 12, 180);
+  color: rgb(133, 20, 240);
 }
 
 #button {
   margin-top: 2%;
+}
+
+.radio {
+  margin-top: 5%;
 }

@@ -13,7 +13,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#630cb4",
+      main: "#8514f0",
     },
   },
 });

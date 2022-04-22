@@ -15,23 +15,48 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { green, orange } from "@mui/material/colors";
 import { useState, useEffect } from "react";
 import { getSubredditPosts } from "../components/api/getSubredditPosts";
 import HomeButton from "../components/ui/HomeButton";
 import SearchIcon from "@mui/icons-material/Search";
 import "./style/Style.css";
 
+const purple = "#8514f0";
+const white = "#cfcfcf";
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#630cb4",
+      main: purple,
     },
     secondary: {
-      main: "#FFFFFF",
+      main: white,
+    },
+    action: {
+      disabledBackground: "#3c086e",
+      disabled: "#919191",
+    },
+  },
+  components: {
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: purple,
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: white,
+          textAlign: "center",
+          fontWeight: "bold",
+        },
+      },
     },
   },
 });
-
 function Home() {
   const navigate = useNavigate();
   const [subreddit, setSubreddit] = useState("livestreamfail");
@@ -82,12 +107,19 @@ function Home() {
   return (
     <div className="homepage">
       <HomeButton />
-      <Stack direction="column" alignItems="center" justifyContent="center">
+      <h3>
+        Watch Clips from Livestream Fails and get the community sentiment on
+        them
+      </h3>
+      <Stack
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        className="radio"
+      >
         <ThemeProvider theme={theme}>
           <FormControl>
-            <FormLabel style={{ color: "white", textAlign: "center" }}>
-              Search Type
-            </FormLabel>
+            <FormLabel>Search Type</FormLabel>
             <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
@@ -101,14 +133,12 @@ function Home() {
           </FormControl>
           {!isTop && (
             <FormControl variant="filled" fullWidth>
-              <InputLabel style={{ color: "white" }}>
-                Number of Posts
-              </InputLabel>
+              <InputLabel style={{ color: white }}>Number of Posts</InputLabel>
               <Select
                 value={searchOption}
                 label="Number of Posts"
                 onChange={HandleOptionChange}
-                style={{ color: "white" }}
+                style={{ color: white, backgroundColor: "gray" }}
               >
                 <MenuItem value={"10"}>10</MenuItem>
                 <MenuItem value={"25"}>25</MenuItem>

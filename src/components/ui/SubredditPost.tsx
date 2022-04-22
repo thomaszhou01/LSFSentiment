@@ -1,5 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, ListItem, ListItemText, Paper } from "@mui/material";
+import {
+  Button,
+  ListItem,
+  ListItemText,
+  Paper,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
 import { getPostComments } from "../api/getPostComments";
 import {
   Accordion,
@@ -9,12 +16,22 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+const backgroundColor = "#474747";
+const greyBoarder = "grey.700";
+
 function SubredditPost(props: any) {
   const [subredditComments, setSubredditComments] = useState([]);
 
   function generatePosts(post: never[]) {
     return post.map((postName) => (
-      <Accordion>
+      <Accordion
+        style={{
+          width: "100%",
+          backgroundColor: backgroundColor,
+          color: "white",
+        }}
+        sx={{ border: 1, borderColor: greyBoarder }}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -31,7 +48,7 @@ function SubredditPost(props: any) {
   useEffect(() => {
     setSubredditComments(props.comments[0]["comments"]);
     console.log(props.comments);
-  }, []);
+  }, [props.comments]);
 
   return (
     <Paper
@@ -42,13 +59,20 @@ function SubredditPost(props: any) {
         width: "100%",
       }}
     >
-      <Accordion style={{ width: "100%" }}>
+      <Accordion
+        style={{
+          width: "100%",
+          backgroundColor: backgroundColor,
+          color: "white",
+        }}
+        sx={{ border: 1, borderColor: greyBoarder }}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>View Comments</Typography>
+          <Typography>View Top Comments</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>{generatePosts(subredditComments)}</Typography>
