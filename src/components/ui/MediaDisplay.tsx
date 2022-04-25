@@ -52,6 +52,9 @@ function MediaDisplay(props: any) {
         <div className="mediaDisplay">
           <TopBar
             changePost={changePost}
+            mediaType={props.postInfo[postNum]["mediaType"]}
+            mediaLink={props.postInfo[postNum]["mediaLink"]}
+            postLink={props.postInfo[postNum]["redditLink"]}
             title={props.postInfo[postNum]["title"]}
           />
           {props.postInfo[postNum]["mediaType"] === 0 ? (
