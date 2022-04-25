@@ -7,7 +7,6 @@ import {
   createTheme,
   ThemeProvider,
 } from "@mui/material";
-import { getPostComments } from "../api/getPostComments";
 import {
   Accordion,
   AccordionSummary,
@@ -47,7 +46,6 @@ function SubredditPost(props: any) {
   }
   useEffect(() => {
     setSubredditComments(props.comments[0]["comments"]);
-    console.log(props.comments);
   }, [props.comments]);
 
   return (

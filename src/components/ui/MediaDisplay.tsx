@@ -43,7 +43,6 @@ function MediaDisplay(props: any) {
         console.log(response.data);
         setPostInfo(response.data);
       });
-      console.log(response.data);
     });
   }, [postNum, props.loaded]);
 
