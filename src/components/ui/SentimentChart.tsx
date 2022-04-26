@@ -45,21 +45,36 @@ function SentimentChart(props: any) {
             axisLine={false}
           />
           <Tooltip wrapperStyle={{ zIndex: 1000 }} />
-          <Bar dataKey="negative" fill="#dd7876" stackId="a">
+          <Bar
+            isAnimationActive={false}
+            dataKey="negative"
+            fill="#dd7876"
+            stackId="a"
+          >
             <LabelList
               dataKey="negative"
               position="center"
               content={renderCustomizedLabel}
             />
           </Bar>
-          <Bar dataKey="neutral" fill="#76a8dd" stackId="a">
+          <Bar
+            isAnimationActive={false}
+            dataKey="neutral"
+            fill="#76a8dd"
+            stackId="a"
+          >
             <LabelList
               dataKey="neutral"
               position="center"
               content={renderCustomizedLabel}
             />
           </Bar>
-          <Bar dataKey="positive" fill="#82ba7f" stackId="a">
+          <Bar
+            isAnimationActive={false}
+            dataKey="positive"
+            fill="#82ba7f"
+            stackId="a"
+          >
             <LabelList
               dataKey="positive"
               position="center"

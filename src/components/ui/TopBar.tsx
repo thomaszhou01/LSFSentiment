@@ -38,6 +38,9 @@ function TopBar(props: any) {
     <ThemeProvider theme={theme}>
       <AppBar position="static" color="primary">
         <Toolbar style={{ paddingRight: "0" }}>
+          <Typography variant="h6" component="div" mr={2}>
+            {props.score}
+          </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {props.title}
           </Typography>
@@ -58,10 +61,16 @@ function TopBar(props: any) {
             </IconButton>
           </Link>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <IconButton onClick={() => props.changePost(false)}>
+          <IconButton
+            onClick={() => props.changePost(false)}
+            disabled={props.disabled == 0}
+          >
             <ArrowBackIosNewIcon />
           </IconButton>
-          <IconButton onClick={() => props.changePost(true)}>
+          <IconButton
+            onClick={() => props.changePost(true)}
+            disabled={props.disabled == 2}
+          >
             <ArrowForwardIosIcon />
           </IconButton>
           {/* <Button
