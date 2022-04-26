@@ -8,6 +8,7 @@ function SubredditInfo(props: any) {
   const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
   const [subredditPosts, setSubredditPosts] = useState([]);
+  const [searchType, setSearchType] = useState("");
   const { subreddit, posts, type } = useParams();
 
   useEffect(() => {
@@ -23,11 +24,10 @@ function SubredditInfo(props: any) {
     if (posts != null) {
       postOption = posts;
     }
-
+    setSearchType(searchType);
     getSubredditPosts(subredditName, postOption, searchType).then(
       (response: any) => {
         setSubredditPosts(response.data);
-        console.log(response.data);
         setLoaded(true);
       }
     );

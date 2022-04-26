@@ -16,13 +16,14 @@ function MediaDisplay(props: any) {
   const [loaded, setLoaded] = useState(false);
   const [commentLoaded, setCommentLoaded] = useState(false);
   const [disabled, setDisabled] = useState(0);
+  const [id, setId] = useState("");
 
   const {
     isLoading: isLoadingComments,
     data: comments,
     refetch: refreshComments,
   } = useQuery(
-    ["comments", postNum],
+    [id],
     () => {
       return getPostComments(props.postInfo[postNum]["id"]);
     },
@@ -54,6 +55,8 @@ function MediaDisplay(props: any) {
     if (postId === undefined) {
       return;
     }
+    console.log("hello");
+    setId(props.postInfo[postNum]["id"]);
     getTwitchClip(props.postInfo[postNum]["mediaLink"]).then((response) => {
       const linkToClip = response.data;
       setClipLink(linkToClip);
@@ -64,7 +67,6 @@ function MediaDisplay(props: any) {
 
   useEffect(() => {
     if (comments != undefined) {
-      console.log(comments.data);
       setCommentLoaded(true);
     }
   }, [comments]);
