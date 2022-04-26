@@ -55,7 +55,6 @@ function MediaDisplay(props: any) {
     if (postId === undefined) {
       return;
     }
-    console.log("hello");
     setId(props.postInfo[postNum]["id"]);
     getTwitchClip(props.postInfo[postNum]["mediaLink"]).then((response) => {
       const linkToClip = response.data;
@@ -91,6 +90,9 @@ function MediaDisplay(props: any) {
                 playing={true}
                 controls={true}
                 style={{ width: 1000 }}
+                onEnded={() => {
+                  changePost(true);
+                }}
                 width="100%"
                 height="100%"
               />
