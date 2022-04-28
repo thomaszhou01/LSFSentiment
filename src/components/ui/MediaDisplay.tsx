@@ -15,6 +15,7 @@ function MediaDisplay(props: any) {
   const [clipLink, setClipLink] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [commentLoaded, setCommentLoaded] = useState(false);
+  const [autoplay, setAutoplay] = useState(true);
   const [disabled, setDisabled] = useState(0);
   const [id, setId] = useState("");
 
@@ -50,6 +51,11 @@ function MediaDisplay(props: any) {
     }
   }
 
+  function toggleAutoplay(toggle: boolean) {
+    console.log(toggle);
+    setAutoplay(toggle);
+  }
+
   useEffect(() => {
     let postId = props.postInfo[postNum];
     if (postId === undefined) {
@@ -76,6 +82,8 @@ function MediaDisplay(props: any) {
         <div className="mediaDisplay">
           <TopBar
             changePost={changePost}
+            toggleAutoplay={toggleAutoplay}
+            autoplay={autoplay}
             mediaType={props.postInfo[postNum]["mediaType"]}
             mediaLink={props.postInfo[postNum]["mediaLink"]}
             postLink={props.postInfo[postNum]["redditLink"]}
@@ -91,7 +99,9 @@ function MediaDisplay(props: any) {
                 controls={true}
                 style={{ width: 1000 }}
                 onEnded={() => {
-                  changePost(true);
+                  if (autoplay) {
+                    changePost(true);
+                  }
                 }}
                 width="100%"
                 height="100%"

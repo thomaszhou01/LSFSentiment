@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   IconButton,
   Button,
@@ -9,11 +10,17 @@ import {
   SvgIcon,
   Link,
   Divider,
+  Menu,
+  MenuItem,
+  FormGroup,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Reddit, Twitter } from "@mui/icons-material";
 import LinkIcon from "@mui/icons-material/Link";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { ReactComponent as TwitchLogo } from "../../resources/twitchLogo.svg";
 
 const theme = createTheme({
@@ -34,6 +41,15 @@ const theme = createTheme({
 });
 
 function TopBar(props: any) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    setAnchorEl(event.currentTarget);
+  }
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static" color="primary">
@@ -60,6 +76,26 @@ function TopBar(props: any) {
               )}
             </IconButton>
           </Link>
+          <Divider orientation="vertical" variant="middle" flexItem />
+          <IconButton onClick={handleClick}>
+            <SettingsIcon />
+          </IconButton>
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <MenuItem>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={props.autoplay}
+                      onClick={() => props.toggleAutoplay(!props.autoplay)}
+                    />
+                  }
+                  label="Autoplay"
+                />
+              </FormGroup>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>Hide NSFW</MenuItem>
+          </Menu>
           <Divider orientation="vertical" variant="middle" flexItem />
           <IconButton
             onClick={() => props.changePost(false)}
