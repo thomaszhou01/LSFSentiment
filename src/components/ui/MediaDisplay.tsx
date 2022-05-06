@@ -97,7 +97,7 @@ function MediaDisplay(props: any) {
                 url={clipLink}
                 playing={true}
                 controls={true}
-                style={{ width: 1000 }}
+                className="react-player"
                 onEnded={() => {
                   if (autoplay) {
                     changePost(true);
