@@ -4,10 +4,11 @@ import ReactPlayer from "react-player";
 import SubredditPost from "./SubredditPost";
 import TopBar from "./TopBar";
 import SentimentChart from "./SentimentChart";
-import { LinearProgress, Fade } from "@mui/material";
+import { LinearProgress, Fade, Box, Container } from "@mui/material";
 import { getPostComments } from "../api/getPostComments";
 import { getTwitchClip } from "../api/getTwitchClip";
 import { useQuery } from "react-query";
+import sadge from "../../resources/sadge.png";
 import "./style/MediaDisplay.css";
 
 function MediaDisplay(props: any) {
@@ -16,6 +17,7 @@ function MediaDisplay(props: any) {
   const [loaded, setLoaded] = useState(false);
   const [commentLoaded, setCommentLoaded] = useState(false);
   const [autoplay, setAutoplay] = useState(true);
+  const [contentDeleted, setContentDeleted] = useState(false);
   const [disabled, setDisabled] = useState(0);
   const [id, setId] = useState("");
 
@@ -65,6 +67,11 @@ function MediaDisplay(props: any) {
     getTwitchClip(props.postInfo[postNum]["mediaLink"]).then((response) => {
       const linkToClip = response.data;
       setClipLink(linkToClip);
+      if (linkToClip === "content missing") {
+        setContentDeleted(true);
+      } else {
+        setContentDeleted(false);
+      }
       setLoaded(true);
       refreshComments();
     });
@@ -91,7 +98,25 @@ function MediaDisplay(props: any) {
             title={props.postInfo[postNum]["title"]}
             disabled={disabled}
           />
-          {props.postInfo[postNum]["mediaType"] === 0 ? (
+          {contentDeleted ? (
+            <Container maxWidth="sm">
+              <Box
+                sx={{
+                  bgcolor: "#292929",
+                  borderRadius: 1,
+                  textAlign: "center",
+                }}
+              >
+                <h3>Content Unavailable</h3>
+                <p>Post has probably been deleted</p>
+                <img
+                  src={sadge}
+                  alt="Sadge"
+                  style={{ height: "10%", width: "10%" }}
+                />
+              </Box>
+            </Container>
+          ) : props.postInfo[postNum]["mediaType"] === 0 ? (
             <div className="video-wrapper">
               <ReactPlayer
                 url={clipLink}
@@ -115,9 +140,41 @@ function MediaDisplay(props: any) {
               </div>
             )
           ) : props.postInfo[postNum]["mediaType"] === 2 ? (
-            <p>Missing</p>
+            <Container maxWidth="sm">
+              <Box
+                sx={{
+                  bgcolor: "#292929",
+                  borderRadius: 1,
+                  textAlign: "center",
+                }}
+              >
+                <h3>Content Unavailable</h3>
+                <p>Post has probably been deleted</p>
+                <img
+                  src={sadge}
+                  alt="Sadge"
+                  style={{ height: "10%", width: "10%" }}
+                />
+              </Box>
+            </Container>
           ) : (
-            <LinearProgress />
+            <Container maxWidth="sm">
+              <Box
+                sx={{
+                  bgcolor: "#292929",
+                  borderRadius: 1,
+                  textAlign: "center",
+                }}
+              >
+                <h3>Content Unavailable</h3>
+                <p>Post has probably been deleted</p>
+                <img
+                  src={sadge}
+                  alt="Sadge"
+                  style={{ height: "10%", width: "10%" }}
+                />
+              </Box>
+            </Container>
           )}
           {commentLoaded && (
             <Fade in={commentLoaded}>
