@@ -1,7 +1,7 @@
 .video-wrapper {
-  position: relative;
-  padding-top: 56.25%;
-  /* height: 100%;
+	position: relative;
+	padding-top: 56.25%;
+	/* height: 100%;
   width: 100%;
   min-height: 225px;
   text-align: center;
@@ -9,19 +9,25 @@
   justify-content: center; */
 }
 .react-player {
-  position: absolute;
-  top: 0;
-  left: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 .tweet-wrapper {
-  text-align: center;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
+	text-align: center;
+	display: flex;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
 }
 
 .mediaDisplay {
-  width: 60vw;
-  background-color: rgb(36, 36, 36);
+	width: 60vw;
+	background-color: rgb(36, 36, 36);
+}
+
+@media screen and (max-width: 1000px) {
+	.mediaDisplay {
+		width: 100vw;
+	}
 }
